@@ -17,6 +17,7 @@ import Security from "@/pages/security";
 import Compliance from "@/pages/compliance";
 import ApiDocs from "@/pages/api-docs";
 import Features from "@/pages/features";
+import TwilioSetup from "@/pages/twilio-setup";
 import NotFound from "@/pages/not-found";
 import NLQueryInterface from "@/components/NLQueryInterface";
 import AdvancedSearch from "@/pages/advanced-search";
@@ -45,6 +46,7 @@ function Router() {
       <Route path="/compliance" component={Compliance} />
       <Route path="/api-docs" component={ApiDocs} />
       <Route path="/features" component={Features} />
+      <Route path="/twilio-setup" component={TwilioSetup} />
       <Route path="/dashboard">
         <ProtectedRoute component={Dashboard} />
       </Route>

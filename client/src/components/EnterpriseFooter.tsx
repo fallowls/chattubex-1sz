@@ -94,6 +94,7 @@ export function EnterpriseFooter() {
 
   const resourcesLinks = [
     { label: "Help Center", href: "https://app.fallowl.com", testId: "link-footer-help" },
+    { label: "Twilio Setup Guide", href: "/twilio-setup", testId: "link-footer-twilio" },
     { label: "Blog", href: "#", testId: "link-footer-blog" },
     { label: "Status Page", href: "#", testId: "link-footer-status" },
   ];
