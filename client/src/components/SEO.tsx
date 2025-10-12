@@ -49,15 +49,24 @@ export function SEO({
     updateMetaTag('og:description', ogDescription || description, true);
     updateMetaTag('og:type', ogType, true);
     
+    if (canonical) {
+      updateMetaTag('og:url', canonical, true);
+    }
+    
     if (ogImage) {
       updateMetaTag('og:image', ogImage, true);
     }
     
-    updateMetaTag('twitter:title', ogTitle || title, true);
-    updateMetaTag('twitter:description', ogDescription || description, true);
+    updateMetaTag('twitter:card', 'summary_large_image');
+    updateMetaTag('twitter:title', ogTitle || title);
+    updateMetaTag('twitter:description', ogDescription || description);
+    
+    if (canonical) {
+      updateMetaTag('twitter:url', canonical);
+    }
     
     if (ogImage) {
-      updateMetaTag('twitter:image', ogImage, true);
+      updateMetaTag('twitter:image', ogImage);
     }
     
     if (canonical) {
