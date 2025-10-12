@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useRoute, useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { SEO } from "@/components/SEO";
 import { 
   Menu, 
   Calendar, 
@@ -537,8 +538,66 @@ export default function BlogPost() {
 
   const IconComponent = post.icon;
 
+  const seoConfig = {
+    "benefits-of-parallel-dialers": {
+      title: "Benefits of Parallel Dialers for Sales Teams | FallOwl",
+      description: "Discover how parallel dialers can increase your team's productivity by 4x. Learn about benefits, best practices, and ROI of parallel dialing technology.",
+      keywords: "parallel dialer benefits, parallel dialer productivity, auto dialer benefits, sales team efficiency, parallel dialing ROI"
+    },
+    "power-dialer-vs-parallel-dialer": {
+      title: "Power Dialer vs Parallel Dialer: Complete Guide 2025 | FallOwl",
+      description: "Compare power dialers and parallel dialers to choose the right solution. Learn key differences, use cases, pricing, and which dialer fits your sales team.",
+      keywords: "power dialer vs parallel dialer, dialer comparison, power dialer benefits, parallel dialer features, best auto dialer"
+    },
+    "choosing-right-auto-dialer": {
+      title: "How to Choose the Right Auto Dialer for Your Business | FallOwl",
+      description: "Complete guide to selecting the perfect auto dialer. Compare power, parallel, predictive, and preview dialers with implementation tips and cost analysis.",
+      keywords: "choose auto dialer, auto dialer guide, best auto dialer, dialer selection, auto dialer comparison, predictive vs power dialer"
+    }
+  };
+
+  const currentSEO = seoConfig[slug as keyof typeof seoConfig] || {
+    title: post.title,
+    description: post.content.intro,
+    keywords: "auto dialer, sales technology, power dialer"
+  };
+
   return (
     <div className="min-h-screen bg-[#F8F7F5] text-slate-900">
+      <SEO 
+        title={currentSEO.title}
+        description={currentSEO.description}
+        keywords={currentSEO.keywords}
+        ogTitle={post.title}
+        ogDescription={post.content.intro.substring(0, 160)}
+        ogImage="/attached_assets/FallOwl_logo_1759280190715.png"
+        ogType="article"
+        canonical={`https://fallowl.com/blog/${slug}`}
+        schema={{
+          "@context": "https://schema.org",
+          "@type": "BlogPosting",
+          "headline": post.title,
+          "description": post.content.intro,
+          "image": "/attached_assets/FallOwl_logo_1759280190715.png",
+          "datePublished": "2025-10-10T08:00:00+00:00",
+          "dateModified": "2025-10-10T08:00:00+00:00",
+          "author": {
+            "@type": "Person",
+            "name": post.author
+          },
+          "publisher": {
+            "@type": "Organization",
+            "name": "FallOwl",
+            "logo": {
+              "@type": "ImageObject",
+              "url": "https://fallowl.com/attached_assets/FallOwl_logo_1759280190715.png"
+            }
+          },
+          "keywords": currentSEO.keywords,
+          "articleBody": post.content.intro,
+          "wordCount": post.readTime
+        }}
+      />
       {/* Navigation */}
       <nav className="relative top-4 left-0 right-0 z-50 px-4 md:px-6 lg:px-8 mb-8">
         <div className="max-w-7xl mx-auto bg-white/80 backdrop-blur-xl rounded-2xl border border-gray-200/50 shadow-lg shadow-slate-900/5">

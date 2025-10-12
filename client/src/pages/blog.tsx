@@ -3,6 +3,7 @@ import { Link, useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
+import { SEO } from "@/components/SEO";
 import { 
   Menu, 
   Search, 
@@ -69,6 +70,30 @@ export default function Blog() {
 
   return (
     <div className="min-h-screen bg-[#F8F7F5] text-slate-900">
+      <SEO 
+        title="Auto Dialer & Sales Technology Blog | FallOwl"
+        description="Expert insights on auto dialers, power dialers, and sales technology. Learn best practices for maximizing sales team productivity with modern dialing solutions."
+        keywords="auto dialer blog, power dialer guide, parallel dialer tips, sales technology, dialer comparison, outbound sales best practices"
+        ogTitle="Auto Dialer & Sales Technology Blog | FallOwl"
+        ogDescription="Expert insights on auto dialers, power dialers, and sales technology. Learn best practices for maximizing sales team productivity."
+        ogImage="/attached_assets/FallOwl_logo_1759280190715.png"
+        canonical="https://fallowl.com/blog"
+        schema={{
+          "@context": "https://schema.org",
+          "@type": "Blog",
+          "name": "FallOwl Blog",
+          "description": "Expert insights on auto dialers, power dialers, and sales technology",
+          "url": "https://fallowl.com/blog",
+          "publisher": {
+            "@type": "Organization",
+            "name": "FallOwl",
+            "logo": {
+              "@type": "ImageObject",
+              "url": "https://fallowl.com/attached_assets/FallOwl_logo_1759280190715.png"
+            }
+          }
+        }}
+      />
       {/* Navigation */}
       <nav className="relative top-4 left-0 right-0 z-50 px-4 md:px-6 lg:px-8 mb-8">
         <div className="max-w-7xl mx-auto bg-white/80 backdrop-blur-xl rounded-2xl border border-gray-200/50 shadow-lg shadow-slate-900/5">
