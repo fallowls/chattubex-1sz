@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { SEO } from "@/components/SEO";
 import { 
   Phone, 
   Key, 
@@ -41,6 +42,43 @@ export default function TwilioSetup() {
 
   return (
     <div className="min-h-screen bg-[#F8F7F5] text-slate-900">
+      <SEO 
+        title="Twilio Setup Guide for Auto Dialer Integration | FallOwl"
+        description="Step-by-step guide to setting up Twilio for your auto dialer. Learn how to configure Twilio account, phone numbers, and API credentials for FallOwl integration."
+        keywords="twilio setup, twilio auto dialer, twilio integration guide, twilio phone numbers, twilio api setup, configure twilio"
+        ogTitle="Complete Twilio Setup Guide for Auto Dialer Integration"
+        ogDescription="Step-by-step guide to setting up Twilio for your auto dialer. Configure account, phone numbers, and API credentials easily."
+        ogImage="/attached_assets/FallOwl_logo_1759280190715.png"
+        canonical="https://fallowl.com/twilio-setup"
+        schema={{
+          "@context": "https://schema.org",
+          "@type": "HowTo",
+          "name": "How to Set Up Twilio for Auto Dialer",
+          "description": "Complete guide to setting up Twilio for auto dialer integration",
+          "step": [
+            {
+              "@type": "HowToStep",
+              "name": "Create Twilio Account",
+              "text": "Sign up for a Twilio account and verify your email address"
+            },
+            {
+              "@type": "HowToStep",
+              "name": "Get API Credentials",
+              "text": "Navigate to Console and copy your Account SID and Auth Token"
+            },
+            {
+              "@type": "HowToStep",
+              "name": "Purchase Phone Number",
+              "text": "Buy a Twilio phone number for outbound calling"
+            },
+            {
+              "@type": "HowToStep",
+              "name": "Configure Webhooks",
+              "text": "Set up webhook URLs for call events and status updates"
+            }
+          ]
+        }}
+      />
       {/* Navigation */}
       <nav className="relative top-4 left-0 right-0 z-50 px-4 md:px-6 lg:px-8 mb-8">
         <div className="max-w-7xl mx-auto bg-white/80 backdrop-blur-xl rounded-2xl border border-gray-200/50 shadow-lg shadow-slate-900/5">
