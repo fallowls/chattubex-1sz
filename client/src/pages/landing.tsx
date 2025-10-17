@@ -59,6 +59,7 @@ import { apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
 import fallOwlLogo from "@assets/FallOwl_logo_1759280190715.png";
 import { EnterpriseFooter } from "@/components/EnterpriseFooter";
+import { SEO } from "@/components/SEO";
 
 export default function Landing() {
   const [clickCount, setClickCount] = useState(0);
@@ -201,6 +202,25 @@ POST https://api.fallowl.com/webhooks
 
   return (
     <div className="min-h-screen bg-[#F8F7F5] text-slate-900 overflow-x-hidden">
+      <SEO 
+        title="Twilio Dialer & Parallel Dialer with Sales CRM Integration | FallOwl"
+        description="Enterprise Twilio dialer with parallel dialing & sales CRM integration. Auto dialer software for sales teams with AI calling, real-time analytics & Twilio API integration. Free trial."
+        keywords="twilio dialer, parallel dialer, sales crm integration, twilio auto dialer, twilio power dialer, parallel dialing software, auto dialer crm, twilio call center software, sales dialer software, twilio predictive dialer"
+        canonical="https://fallowl.com/"
+        schema={{
+          "@context": "https://schema.org",
+          "@type": "SoftwareApplication",
+          "name": "FallOwl - Twilio Dialer & Parallel Dialing CRM Software",
+          "applicationCategory": "BusinessApplication",
+          "description": "Enterprise Twilio dialer with parallel dialing and sales CRM integration for maximum sales productivity",
+          "url": "https://fallowl.com",
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+          }
+        }}
+      />
       
       {/* Navigation */}
       <nav className={`${showHeader ? 'fixed top-0 animate-in slide-in-from-top duration-300' : 'relative top-4'} left-0 right-0 z-50 px-4 md:px-6 lg:px-8 ${!showHeader && 'mb-8'} transition-all`}>
@@ -271,7 +291,7 @@ POST https://api.fallowl.com/webhooks
           <div className="text-center max-w-4xl mx-auto">
             {/* Top badge text */}
             <p className="text-sm text-slate-600 mb-8 animate-in fade-in slide-in-from-top duration-500">
-              Powered by Twilio's Enterprise Infrastructure
+              Powered by <Link href="/twilio-setup" className="text-purple-600 hover:text-purple-700 font-medium hover:underline" data-testid="link-twilio-setup">Twilio's Enterprise Infrastructure</Link>
             </p>
             
             {/* Main heading with colored text */}
@@ -600,7 +620,7 @@ POST https://api.fallowl.com/webhooks
               Intelligent Call Management
             </h2>
             <p className="text-lg text-slate-600">
-              Advanced features that help you manage calls more efficiently
+              <Link href="/features" className="text-purple-600 hover:text-purple-700 font-medium hover:underline" data-testid="link-advanced-features">Advanced features</Link> that help you manage calls more efficiently
             </p>
           </div>
           

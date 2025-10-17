@@ -25,6 +25,7 @@ import {
 import { Link } from "wouter";
 import fallOwlLogo from "@assets/FallOwl_logo_1759280190715.png";
 import { EnterpriseFooter } from "@/components/EnterpriseFooter";
+import { SEO } from "@/components/SEO";
 
 export default function Features() {
   const features = [
@@ -152,6 +153,19 @@ export default function Features() {
 
   return (
     <div className="min-h-screen bg-[#F8F7F5] text-slate-900">
+      <SEO 
+        title="Parallel Dialer Features & Sales CRM Integration | FallOwl"
+        description="Explore FallOwl's parallel dialer features with sales CRM integration. Twilio auto dialer, AI calling, real-time analytics, call recording, and seamless CRM connectivity for sales teams."
+        keywords="parallel dialer features, sales crm integration, twilio dialer features, auto dialer crm, parallel dialing system, crm dialer software, twilio integration features, sales automation tools"
+        canonical="https://fallowl.com/features"
+        schema={{
+          "@context": "https://schema.org",
+          "@type": "WebPage",
+          "name": "FallOwl Features - Parallel Dialer & CRM Integration",
+          "description": "Complete feature list for FallOwl's parallel dialer and sales CRM integration platform",
+          "url": "https://fallowl.com/features"
+        }}
+      />
       {/* Navigation */}
       <nav className="sticky top-0 z-50 px-4 md:px-6 lg:px-8 bg-white/80 backdrop-blur-xl border-b border-gray-200/50 shadow-sm">
         <div className="max-w-7xl mx-auto">

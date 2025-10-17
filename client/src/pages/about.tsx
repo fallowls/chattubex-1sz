@@ -26,6 +26,7 @@ import {
 import { Link, useLocation } from "wouter";
 import fallOwlLogo from "@assets/FallOwl_logo_1759280190715.png";
 import { EnterpriseFooter } from "@/components/EnterpriseFooter";
+import { SEO } from "@/components/SEO";
 
 export default function AboutUs() {
   const [hoveredFeature, setHoveredFeature] = useState<number | null>(null);
@@ -104,6 +105,19 @@ export default function AboutUs() {
 
   return (
     <div className="min-h-screen bg-[#F8F7F5] text-slate-900">
+      <SEO 
+        title="About FallOwl - Twilio Dialer & Parallel Dialing Platform | FallOwl"
+        description="Learn about FallOwl's enterprise Twilio dialer and parallel dialing platform. Innovative sales CRM integration, AI-powered calling, and Twilio voice API technology for sales teams."
+        keywords="about fallowl, twilio dialer company, parallel dialer platform, sales crm software, twilio integration company, auto dialer solutions, sales automation platform"
+        canonical="https://fallowl.com/about"
+        schema={{
+          "@context": "https://schema.org",
+          "@type": "AboutPage",
+          "name": "About FallOwl",
+          "description": "FallOwl provides enterprise Twilio dialer with parallel dialing and sales CRM integration",
+          "url": "https://fallowl.com/about"
+        }}
+      />
       {/* Navigation */}
       <nav className={`${showHeader ? 'fixed top-0 animate-in slide-in-from-top duration-300' : 'relative top-4'} left-0 right-0 z-50 px-4 md:px-6 lg:px-8 ${!showHeader && 'mb-8'} transition-all`}>
         <div className={`max-w-7xl mx-auto bg-white/80 backdrop-blur-xl ${showHeader ? 'rounded-b-2xl mt-0' : 'rounded-2xl mt-0'} border border-gray-200/50 shadow-lg shadow-slate-900/5`}>

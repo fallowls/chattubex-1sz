@@ -43,12 +43,12 @@ export default function TwilioSetup() {
   return (
     <div className="min-h-screen bg-[#F8F7F5] text-slate-900">
       <SEO 
-        title="Twilio Setup Guide for Auto Dialer Integration | FallOwl"
-        description="Step-by-step guide to setting up Twilio for your auto dialer. Learn how to configure Twilio account, phone numbers, and API credentials for FallOwl integration."
-        keywords="twilio setup, twilio auto dialer, twilio integration guide, twilio phone numbers, twilio api setup, configure twilio"
-        ogTitle="Complete Twilio Setup Guide for Auto Dialer Integration"
-        ogDescription="Step-by-step guide to setting up Twilio for your auto dialer. Configure account, phone numbers, and API credentials easily."
-        ogImage="/attached_assets/FallOwl_logo_1759280190715.png"
+        title="Twilio Setup Guide - Parallel Dialer & CRM Integration | FallOwl"
+        description="Complete Twilio setup guide for parallel dialer and sales CRM integration. Configure Twilio auto dialer, API credentials, phone numbers, and webhooks for FallOwl's sales automation platform."
+        keywords="twilio setup, twilio parallel dialer, twilio crm integration, twilio auto dialer setup, twilio api configuration, twilio phone numbers, twilio sales dialer, configure twilio for crm, twilio integration guide, twilio voice api setup"
+        ogTitle="Complete Twilio Setup Guide - Parallel Dialer & CRM Integration"
+        ogDescription="Step-by-step Twilio setup for parallel dialer and sales CRM. Configure API credentials, phone numbers, and webhooks for automated sales calling."
+        ogImage="/favicon.png"
         canonical="https://fallowl.com/twilio-setup"
         schema={{
           "@context": "https://schema.org",

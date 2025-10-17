@@ -71,13 +71,13 @@ export default function Blog() {
   return (
     <div className="min-h-screen bg-[#F8F7F5] text-slate-900">
       <SEO 
-        title="Auto Dialer & Sales Technology Blog | FallOwl"
-        description="Expert insights on auto dialers, power dialers, and sales technology. Learn best practices for maximizing sales team productivity with modern dialing solutions."
-        keywords="auto dialer blog, power dialer guide, parallel dialer tips, sales technology, dialer comparison, outbound sales best practices"
-        ogTitle="Auto Dialer & Sales Technology Blog | FallOwl"
-        ogDescription="Expert insights on auto dialers, power dialers, and sales technology. Learn best practices for maximizing sales team productivity."
-        ogImage="/attached_assets/FallOwl_logo_1759280190715.png"
+        title="Twilio Dialer & Parallel Dialing Blog - Sales CRM Insights | FallOwl"
+        description="Expert insights on Twilio dialers, parallel dialing, and sales CRM integration. Learn best practices for auto dialers, sales automation, and maximizing team productivity."
+        keywords="twilio dialer blog, parallel dialer tips, sales crm blog, auto dialer best practices, twilio integration guide, sales automation insights, power dialer strategies, auto dialer guide"
         canonical="https://fallowl.com/blog"
+        ogTitle="Twilio Dialer & Sales Technology Blog | FallOwl"
+        ogDescription="Expert insights on Twilio dialers, parallel dialing, and sales CRM integration. Best practices for auto dialers and sales automation."
+        ogImage="/favicon.png"
         schema={{
           "@context": "https://schema.org",
           "@type": "Blog",

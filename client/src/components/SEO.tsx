@@ -10,6 +10,7 @@ interface SEOProps {
   ogType?: string;
   canonical?: string;
   schema?: object;
+  robots?: string;
 }
 
 export function SEO({
@@ -21,7 +22,8 @@ export function SEO({
   ogImage,
   ogType = 'website',
   canonical,
-  schema
+  schema,
+  robots = 'index, follow, max-snippet:-1, max-image-preview:large'
 }: SEOProps) {
   useEffect(() => {
     document.title = title;
@@ -40,6 +42,7 @@ export function SEO({
     };
     
     updateMetaTag('description', description);
+    updateMetaTag('robots', robots);
     
     if (keywords) {
       updateMetaTag('keywords', keywords);
@@ -96,7 +99,7 @@ export function SEO({
         dynamicSchema.remove();
       }
     };
-  }, [title, description, keywords, ogTitle, ogDescription, ogImage, ogType, canonical, schema]);
+  }, [title, description, keywords, ogTitle, ogDescription, ogImage, ogType, canonical, schema, robots]);
 
   return null;
 }
