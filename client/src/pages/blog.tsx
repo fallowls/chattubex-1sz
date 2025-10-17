@@ -13,7 +13,16 @@ import {
   TrendingUp,
   Phone,
   Zap,
-  BarChart3
+  BarChart3,
+  Shield,
+  Users,
+  Rocket,
+  Settings,
+  Target,
+  Headphones,
+  Database,
+  Globe,
+  GitBranch
 } from "lucide-react";
 import fallOwlLogo from "@assets/FallOwl_logo_1759280190715.png";
 import { EnterpriseFooter } from "@/components/EnterpriseFooter";
@@ -54,6 +63,150 @@ const blogPosts = [
     readTime: "12 min read",
     image: Zap,
     gradient: "from-orange-400 to-pink-500"
+  },
+  {
+    id: 4,
+    slug: "twilio-integration-sales-crm",
+    title: "Complete Guide to Twilio Integration with Sales CRM",
+    excerpt: "Step-by-step tutorial on integrating Twilio with your sales CRM for seamless calling, SMS, and customer communication automation.",
+    category: "Integration",
+    author: "David Kumar",
+    date: "October 15, 2025",
+    readTime: "15 min read",
+    image: GitBranch,
+    gradient: "from-blue-500 to-indigo-600"
+  },
+  {
+    id: 5,
+    slug: "sales-automation-best-practices",
+    title: "Sales Automation Best Practices with Parallel Dialers",
+    excerpt: "Master sales automation with parallel dialing technology. Learn proven strategies to increase conversion rates and reduce manual work.",
+    category: "Best Practices",
+    author: "Jennifer Parks",
+    date: "October 12, 2025",
+    readTime: "9 min read",
+    image: Rocket,
+    gradient: "from-emerald-500 to-teal-600"
+  },
+  {
+    id: 6,
+    slug: "twilio-api-advanced-features",
+    title: "Advanced Twilio API Features for Sales Teams",
+    excerpt: "Unlock the full potential of Twilio API with advanced features like call recording, transcription, and analytics integration.",
+    category: "Technical",
+    author: "Alex Thompson",
+    date: "October 9, 2025",
+    readTime: "11 min read",
+    image: Settings,
+    gradient: "from-violet-500 to-purple-600"
+  },
+  {
+    id: 7,
+    slug: "crm-dialer-roi-calculator",
+    title: "Calculating ROI: CRM Dialer Investment Guide",
+    excerpt: "Learn how to calculate the return on investment for your CRM dialer implementation and justify the cost to stakeholders.",
+    category: "Business",
+    author: "Rachel Martinez",
+    date: "October 7, 2025",
+    readTime: "7 min read",
+    image: Target,
+    gradient: "from-amber-500 to-orange-600"
+  },
+  {
+    id: 8,
+    slug: "predictive-dialer-vs-auto-dialer",
+    title: "Predictive Dialer vs Auto Dialer: Key Differences",
+    excerpt: "Understand the critical differences between predictive dialers and auto dialers to make the right choice for your outbound sales.",
+    category: "Comparison",
+    author: "Marcus Johnson",
+    date: "October 4, 2025",
+    readTime: "8 min read",
+    image: BarChart3,
+    gradient: "from-cyan-500 to-blue-600"
+  },
+  {
+    id: 9,
+    slug: "outbound-sales-call-scripts",
+    title: "Effective Outbound Sales Call Scripts for Parallel Dialing",
+    excerpt: "Proven call scripts and templates optimized for parallel dialing campaigns that convert prospects into customers.",
+    category: "Scripts",
+    author: "Lisa Anderson",
+    date: "October 3, 2025",
+    readTime: "10 min read",
+    image: Headphones,
+    gradient: "from-pink-500 to-rose-600"
+  },
+  {
+    id: 10,
+    slug: "compliance-tcpa-auto-dialing",
+    title: "TCPA Compliance Guide for Auto Dialing",
+    excerpt: "Essential TCPA compliance requirements for auto dialers and parallel dialers to avoid legal issues and penalties.",
+    category: "Compliance",
+    author: "Robert Chen",
+    date: "October 2, 2025",
+    readTime: "13 min read",
+    image: Shield,
+    gradient: "from-red-500 to-pink-600"
+  },
+  {
+    id: 11,
+    slug: "sales-team-training-dialer",
+    title: "Training Your Sales Team on Auto Dialer Software",
+    excerpt: "Best practices for onboarding and training your sales team to maximize productivity with auto dialer technology.",
+    category: "Training",
+    author: "Jessica Taylor",
+    date: "October 1, 2025",
+    readTime: "9 min read",
+    image: Users,
+    gradient: "from-indigo-500 to-purple-600"
+  },
+  {
+    id: 12,
+    slug: "cloud-based-dialer-advantages",
+    title: "Why Cloud-Based Dialers Are the Future of Sales",
+    excerpt: "Explore the advantages of cloud-based dialers over traditional on-premise solutions for modern sales teams.",
+    category: "Technology",
+    author: "Daniel Lee",
+    date: "September 30, 2025",
+    readTime: "11 min read",
+    image: Globe,
+    gradient: "from-sky-500 to-blue-600"
+  },
+  {
+    id: 13,
+    slug: "crm-data-management-dialers",
+    title: "CRM Data Management for Dialer Campaigns",
+    excerpt: "Master CRM data management strategies to improve dialer campaign performance and maintain data quality.",
+    category: "Data Management",
+    author: "Sophia Williams",
+    date: "September 28, 2025",
+    readTime: "8 min read",
+    image: Database,
+    gradient: "from-teal-500 to-emerald-600"
+  },
+  {
+    id: 14,
+    slug: "ai-powered-dialing-strategies",
+    title: "AI-Powered Dialing: The Next Generation of Sales Automation",
+    excerpt: "Discover how AI is revolutionizing auto dialers with intelligent call routing, predictive analytics, and personalized outreach.",
+    category: "AI & Innovation",
+    author: "Kevin Patel",
+    date: "September 26, 2025",
+    readTime: "12 min read",
+    image: Rocket,
+    gradient: "from-purple-600 to-pink-600"
+  },
+  {
+    id: 15,
+    slug: "twilio-voice-quality-optimization",
+    title: "Optimizing Twilio Voice Quality for Crystal-Clear Calls",
+    excerpt: "Technical guide to optimizing Twilio voice quality, reducing latency, and ensuring HD audio for professional sales calls.",
+    category: "Technical",
+    author: "Nathan Rodriguez",
+    date: "September 25, 2025",
+    readTime: "10 min read",
+    image: Phone,
+    gradient: "from-orange-500 to-red-600"
   },
 ];
 
