@@ -9,6 +9,8 @@ import { setupVite, serveStatic, log } from "./vite";
 
 const app = express();
 
+app.set('trust proxy', true);
+
 const SESSION_SECRET = process.env.SESSION_SECRET || (() => {
   if (process.env.NODE_ENV === 'production') {
     throw new Error('SESSION_SECRET must be set in production for secure sessions');
