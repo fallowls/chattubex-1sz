@@ -15,15 +15,15 @@ function cleanDatabaseUrl(url: string): string {
 
 // Function to get database URL with proper fallback
 function getDatabaseUrl(): string {
-  // Try environment variables in priority order
-  const neonWithBranch = process.env.NEON_DATABASE_URL_WITH_BRANCH;
-  const neonUrl = process.env.NEON_DATABASE_URL;
+  // Try environment variables in priority order - DATABASE_URL first as it's the standard Replit variable
   const databaseUrl = process.env.DATABASE_URL;
+  const neonUrl = process.env.NEON_DATABASE_URL;
+  const neonWithBranch = process.env.NEON_DATABASE_URL_WITH_BRANCH;
   
   // Use the first valid URL found
-  if (neonWithBranch && neonWithBranch.trim()) {
-    console.log('Using NEON_DATABASE_URL_WITH_BRANCH');
-    return cleanDatabaseUrl(neonWithBranch);
+  if (databaseUrl && databaseUrl.trim()) {
+    console.log('Using DATABASE_URL');
+    return cleanDatabaseUrl(databaseUrl);
   }
   
   if (neonUrl && neonUrl.trim()) {
@@ -31,9 +31,9 @@ function getDatabaseUrl(): string {
     return cleanDatabaseUrl(neonUrl);
   }
   
-  if (databaseUrl && databaseUrl.trim()) {
-    console.log('Using DATABASE_URL');
-    return cleanDatabaseUrl(databaseUrl);
+  if (neonWithBranch && neonWithBranch.trim()) {
+    console.log('Using NEON_DATABASE_URL_WITH_BRANCH');
+    return cleanDatabaseUrl(neonWithBranch);
   }
   
   // If no database URL is found, try to construct one from individual postgres env vars
