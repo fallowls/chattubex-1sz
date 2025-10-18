@@ -23,6 +23,7 @@ import BlogPost from "@/pages/blog-post";
 import NotFound from "@/pages/not-found";
 import NLQueryInterface from "@/components/NLQueryInterface";
 import AdvancedSearch from "@/pages/advanced-search";
+import ContactsFilter from "@/pages/contacts-filter";
 
 // Protected Route component
 function ProtectedRoute({ component: Component }: { component: React.ComponentType }) {
@@ -65,6 +66,9 @@ function Router() {
       </Route>
       <Route path="/advanced-search">
         <ProtectedRoute component={AdvancedSearch} />
+      </Route>
+      <Route path="/contacts-filter">
+        <ProtectedRoute component={ContactsFilter} />
       </Route>
       <Route component={NotFound} />
     </Switch>

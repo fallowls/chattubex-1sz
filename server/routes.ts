@@ -2719,5 +2719,118 @@ You have access to campaign and contact databases with 263+ records. Your missio
     }
   });
 
+  // Advanced Contacts Filter Routes (Apollo.io / ZoomInfo style)
+  const { contactsFilterService, FILTER_TEMPLATES } = await import('./services/contactsFilterService');
+
+  // Get available filter templates
+  app.get('/api/contacts-filter/templates', (req, res) => {
+    res.json({ templates: FILTER_TEMPLATES });
+  });
+
+  // Get field suggestions for autocomplete
+  app.get('/api/contacts-filter/suggestions/:field', async (req, res) => {
+    try {
+      const { field } = req.params;
+      const { search = '' } = req.query;
+      
+      const suggestions = await contactsFilterService.getFieldSuggestions(
+        field,
+        search as string,
+        20
+      );
+      
+      res.json({ field, suggestions });
+    } catch (error: any) {
+      console.error('Error getting field suggestions:', error);
+      res.status(400).json({ message: error.message || 'Failed to get suggestions' });
+    }
+  });
+
+  // Get field aggregations for smart filters
+  app.get('/api/contacts-filter/aggregations', async (req, res) => {
+    try {
+      const aggregations = await contactsFilterService.getFieldAggregations();
+      res.json(aggregations);
+    } catch (error: any) {
+      console.error('Error getting aggregations:', error);
+      res.status(500).json({ message: error.message || 'Failed to get aggregations' });
+    }
+  });
+
+  // Get contact statistics
+  app.get('/api/contacts-filter/statistics', async (req, res) => {
+    try {
+      const statistics = await contactsFilterService.getStatistics();
+      res.json(statistics);
+    } catch (error: any) {
+      console.error('Error getting statistics:', error);
+      res.status(500).json({ message: error.message || 'Failed to get statistics' });
+    }
+  });
+
+  // Zod schema for contacts filter search
+  const contactFilterSchema = z.object({
+    column: z.string().regex(/^[a-zA-Z_][a-zA-Z0-9_]*$/, 'Invalid column name'),
+    operator: z.enum(['equals', 'not_equals', 'contains', 'not_contains', 'starts_with', 'ends_with', 
+                       'greater_than', 'less_than', 'greater_or_equal', 'less_or_equal', 
+                       'is_null', 'is_not_null', 'in', 'not_in', 'between']),
+    value: z.any().optional(),
+    value2: z.any().optional(),
+  });
+
+  const contactSearchQuerySchema = z.object({
+    filters: z.array(contactFilterSchema).default([]),
+    filterGroups: z.array(z.object({
+      filters: z.array(contactFilterSchema),
+      combineWith: z.enum(['AND', 'OR']),
+    })).optional(),
+    globalSearch: z.string().optional(),
+    sortBy: z.string().regex(/^[a-zA-Z_][a-zA-Z0-9_]*$/, 'Invalid sort column').optional(),
+    sortOrder: z.enum(['asc', 'desc']).optional(),
+    page: z.number().int().positive().optional(),
+    pageSize: z.number().int().positive().max(500).optional(),
+  });
+
+  // Search contacts with advanced filters
+  app.post('/api/contacts-filter/search', async (req, res) => {
+    try {
+      // Validate request body with Zod
+      const validation = contactSearchQuerySchema.safeParse(req.body);
+      
+      if (!validation.success) {
+        return res.status(400).json({ 
+          message: 'Invalid search query', 
+          errors: validation.error.errors 
+        });
+      }
+
+      const searchQuery = validation.data;
+      const result = await contactsFilterService.search(searchQuery);
+      res.json(result);
+    } catch (error: any) {
+      console.error('Error searching contacts:', error);
+      res.status(500).json({ 
+        message: error.message || 'Failed to search contacts' 
+      });
+    }
+  });
+
+  // Export filtered contacts to CSV
+  app.post('/api/contacts-filter/export', async (req, res) => {
+    try {
+      const searchQuery = req.body;
+      const csv = await contactsFilterService.exportToCSV(searchQuery);
+      
+      res.setHeader('Content-Type', 'text/csv');
+      res.setHeader('Content-Disposition', `attachment; filename="contacts_export_${Date.now()}.csv"`);
+      res.send(csv);
+    } catch (error: any) {
+      console.error('Error exporting contacts:', error);
+      res.status(500).json({ 
+        message: error.message || 'Failed to export contacts' 
+      });
+    }
+  });
+
   return httpServer;
 }

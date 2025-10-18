@@ -12,7 +12,8 @@ import {
   Dog,
   Home,
   Database,
-  Search
+  Search,
+  Users
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
@@ -65,7 +66,8 @@ export default function Dashboard() {
   
   // Separate action items that navigate to other pages
   const actionItems = [
-    { id: "search", label: "Advanced Search", icon: Search, path: "/advanced-search" }
+    { id: "search", label: "Advanced Search", icon: Search, path: "/advanced-search" },
+    { id: "contacts", label: "Contact Filters", icon: Users, path: "/contacts-filter" }
   ];
 
   const handleLogout = () => {
