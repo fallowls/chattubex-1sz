@@ -16,6 +16,7 @@ import { externalDbInspector } from "./services/externalDbInspector";
 import { externalDugguService } from "./services/externalDugguService";
 import { nlQueryService } from "./services/nlQueryService";
 import { advancedSearchService } from "./services/advancedSearchService";
+import { advancedContactSearchService } from "./services/advancedContactSearchService";
 import { z } from "zod";
 
 // Helper function to clean AI responses from unwanted patterns
@@ -2226,7 +2227,7 @@ You have access to campaign and contact databases with 263+ records. Your missio
 
   // Duggu Chatbot API Routes - Read-only database access
   
-  // Search contacts (read-only for chatbot)
+  // Search contacts (read-only for chatbot) - AI-powered advanced search across all 37 contact fields
   app.get('/api/duggu/contacts/search', async (req, res) => {
     try {
       const { q: query, limit = 100 } = req.query;
@@ -2235,11 +2236,41 @@ You have access to campaign and contact databases with 263+ records. Your missio
         return res.status(400).json({ message: 'Search query is required' });
       }
 
-      const result = await externalDugguService.searchContacts(query, parseInt(limit as string));
+      // Use advanced AI-powered search that understands natural language and searches all 37 columns
+      const result = await advancedContactSearchService.searchContacts(query, parseInt(limit as string));
       res.json(result);
     } catch (error) {
       console.error('Duggu chatbot contact search error:', error);
       res.status(500).json({ message: 'Failed to search contacts' });
+    }
+  });
+
+  // Get search suggestions for auto-complete (AI-powered)
+  app.get('/api/duggu/contacts/suggestions', async (req, res) => {
+    try {
+      const { q: query, field, limit = 10 } = req.query;
+      
+      if (!query || typeof query !== 'string') {
+        return res.status(400).json({ message: 'Query is required' });
+      }
+      
+      const validFields = ['company', 'title', 'industry', 'city'];
+      const targetField = (field as string) || 'company';
+      
+      if (!validFields.includes(targetField)) {
+        return res.status(400).json({ message: 'Invalid field. Must be one of: company, title, industry, city' });
+      }
+      
+      const suggestions = await advancedContactSearchService.getSuggestions(
+        query,
+        targetField as 'company' | 'title' | 'industry' | 'city',
+        parseInt(limit as string)
+      );
+      
+      res.json({ suggestions, field: targetField });
+    } catch (error) {
+      console.error('Duggu chatbot get suggestions error:', error);
+      res.status(500).json({ message: 'Failed to get suggestions' });
     }
   });
 
@@ -2252,23 +2283,6 @@ You have access to campaign and contact databases with 263+ records. Your missio
     } catch (error) {
       console.error('Duggu chatbot get contacts error:', error);
       res.status(500).json({ message: 'Failed to get contacts' });
-    }
-  });
-
-  // Get contact by ID (read-only for chatbot)
-  app.get('/api/duggu/contacts/:id', async (req, res) => {
-    try {
-      const { id } = req.params;
-      const contact = await externalDugguService.getContactById(id);
-      
-      if (!contact) {
-        return res.status(404).json({ message: 'Contact not found' });
-      }
-      
-      res.json(contact);
-    } catch (error) {
-      console.error('Duggu chatbot get contact error:', error);
-      res.status(500).json({ message: 'Failed to get contact' });
     }
   });
 
@@ -2458,6 +2472,23 @@ You have access to campaign and contact databases with 263+ records. Your missio
     } catch (error) {
       console.error('Duggu chatbot get high-value contacts error:', error);
       res.status(500).json({ message: 'Failed to get high-value contacts' });
+    }
+  });
+
+  // Get contact by ID (read-only for chatbot) - MUST BE LAST to avoid catching specific routes
+  app.get('/api/duggu/contacts/:id', async (req, res) => {
+    try {
+      const { id } = req.params;
+      const contact = await externalDugguService.getContactById(id);
+      
+      if (!contact) {
+        return res.status(404).json({ message: 'Contact not found' });
+      }
+      
+      res.json(contact);
+    } catch (error) {
+      console.error('Duggu chatbot get contact error:', error);
+      res.status(500).json({ message: 'Failed to get contact' });
     }
   });
 
