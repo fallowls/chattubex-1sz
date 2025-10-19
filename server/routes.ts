@@ -17,6 +17,7 @@ import { externalDugguService } from "./services/externalDugguService";
 import { nlQueryService } from "./services/nlQueryService";
 import { advancedSearchService } from "./services/advancedSearchService";
 import { advancedContactSearchService } from "./services/advancedContactSearchService";
+import { fileStorage } from "./services/fileStorage";
 import { z } from "zod";
 
 // Helper function to clean AI responses from unwanted patterns
@@ -319,14 +320,37 @@ export async function registerRoutes(app: Express): Promise<Server> {
     });
   }
   
-  // Health check endpoint
-  app.get('/api/health', (req, res) => {
-    res.json({ 
-      status: 'ok', 
+  // Basic health check endpoint for Docker and load balancers
+  app.get('/health', (req, res) => {
+    res.status(200).send('OK');
+  });
+
+  // Detailed health check endpoint with database connectivity check
+  app.get('/api/health', async (req, res) => {
+    const health = {
+      status: 'ok',
       timestamp: new Date().toISOString(),
       uptime: process.uptime(),
-      version: '1.0.0'
-    });
+      version: '1.0.0',
+      storage: fileStorage.getStorageType(),
+      database: 'unknown',
+      environment: process.env.NODE_ENV || 'development'
+    };
+
+    try {
+      const { pool } = await import('./db');
+      const client = await pool.connect();
+      await client.query('SELECT 1');
+      client.release();
+      health.database = 'connected';
+    } catch (error) {
+      health.database = 'disconnected';
+      health.status = 'degraded';
+      console.error('Health check database error:', error);
+    }
+
+    const statusCode = health.status === 'ok' ? 200 : 503;
+    res.status(statusCode).json(health);
   });
   
   // Authentication route
@@ -680,11 +704,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return res.status(400).json({ message: 'No document uploaded' });
       }
 
-      // Encrypt file path
-      const encryptedPath = encrypt(file.path);
+      // Upload file using storage service (supports both local and S3)
+      const storedFile = await fileStorage.uploadFile(file);
+      
+      // Encrypt the storage key/path
+      const encryptedPath = encrypt(storedFile.key);
       
       const document = await storage.createDocument({
-        filename: file.filename,
+        filename: storedFile.key,
         originalName: file.originalname,
         mimeType: file.mimetype,
         fileSize: file.size,
@@ -737,42 +764,38 @@ export async function registerRoutes(app: Express): Promise<Server> {
       console.log('Document original name:', document.originalName);
       console.log('Encrypted path:', document.encryptedPath);
       
-      // Decrypt file path using the dedicated file path decryption function
-      let filePath: string;
+      // Decrypt file key/path
+      let fileKey: string;
       try {
-        const decryptedPath = decryptFilePath(document.encryptedPath);
-        console.log('Decrypted file path:', decryptedPath);
-        
-        const fileName = path.basename(decryptedPath);
-        filePath = sanitizeFilePath(fileName);
-        console.log('Sanitized local path:', filePath);
-        
+        fileKey = decryptFilePath(document.encryptedPath);
+        console.log('Decrypted file key:', fileKey);
       } catch (decryptError) {
-        console.error('File path decryption failed:', decryptError);
-        
-        filePath = sanitizeFilePath(document.filename);
-        console.log('Using sanitized fallback path:', filePath);
+        console.error('File key decryption failed:', decryptError);
+        fileKey = document.filename;
+        console.log('Using fallback filename:', fileKey);
       }
       
-      if (!fs.existsSync(filePath)) {
-        console.error('File does not exist at path:', filePath);
-        console.log('Attempting to find file in uploads directory...');
-        
-        // Try to find a matching file by size and creation date
-        const uploadFiles = fs.readdirSync('uploads');
-        console.log('Available files in uploads:', uploadFiles.slice(0, 5));
-        
-        // For now, return a helpful error message
+      // Check if file exists in storage
+      const exists = await fileStorage.fileExists(fileKey);
+      if (!exists) {
+        console.error('File does not exist in storage:', fileKey);
         return res.status(404).json({ 
-          message: 'Document file not found - database and file system are out of sync',
-          details: 'The file reference in the database does not match any files in the uploads directory'
+          message: 'Document file not found',
+          details: 'The file could not be found in the storage system'
         });
       }
       
-      console.log('Final file path used for download:', filePath);
+      // Get file from storage (works with both local and S3)
+      const { stream, filename } = await fileStorage.getFile(fileKey);
+      
+      console.log('Streaming file:', filename);
+      console.log('Storage type:', fileStorage.getStorageType());
       console.log('==================================================')
 
-      res.download(filePath, document.originalName);
+      // Set headers and pipe the stream
+      res.setHeader('Content-Disposition', `attachment; filename="${document.originalName}"`);
+      res.setHeader('Content-Type', document.mimeType);
+      stream.pipe(res);
     } catch (error) {
       console.error('Document download error:', error);
       res.status(500).json({ message: 'Failed to download document' });
