@@ -2,6 +2,8 @@
 
 A secure full-stack web application for intelligent campaign data management with streamlined file handling and user-centric design.
 
+**🚀 AWS Deployment Ready** - This application is configured for deployment to AWS with Docker, S3 file storage, and RDS PostgreSQL support. See [AWS_DEPLOYMENT_GUIDE.md](./AWS_DEPLOYMENT_GUIDE.md) for detailed instructions.
+
 ## 🚀 Quick Deploy (One Command)
 
 ```bash
